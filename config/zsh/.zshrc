@@ -41,9 +41,67 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 # Styling
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
+
+### Catppuccin Mocha palette (https://catppuccin.com/palette)
+typeset -A ctp
+ctp[rosewater]="#f5e0dc"
+ctp[mauve]="#cba6f7"
+ctp[red]="#f38ba8"
+ctp[peach]="#fab387"
+ctp[yellow]="#f9e2af"
+ctp[green]="#a6e3a1"
+ctp[teal]="#94e2d5"
+ctp[sky]="#89dceb"
+ctp[blue]="#89b4fa"
+ctp[lavender]="#b4befe"
+ctp[text]="#cdd6f4"
+ctp[overlay0]="#6c7086"
+ctp[surface1]="#45475a"
+ctp[surface0]="#313244"
+ctp[base]="#1e1e2e"
+ctp[accent_red]="#db4b4b" # brighter red, used where mauve/red need a punchier accent
+
+export FZF_DEFAULT_OPTS="\
+--layout=default --border \
+--color=bg+:$ctp[surface0],bg:$ctp[base],spinner:$ctp[rosewater],hl:$ctp[red] \
+--color=fg:$ctp[text],header:$ctp[red],info:$ctp[mauve],pointer:$ctp[accent_red] \
+--color=marker:$ctp[lavender],fg+:$ctp[text],prompt:$ctp[mauve],hl+:$ctp[red] \
+--color=selected-bg:$ctp[surface1] \
+--color=border:$ctp[surface0],label:$ctp[text]"
+
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[default]="fg=$ctp[text]"
+ZSH_HIGHLIGHT_STYLES[unknown-token]="fg=$ctp[red],bold"
+ZSH_HIGHLIGHT_STYLES[reserved-word]="fg=$ctp[green]"
+ZSH_HIGHLIGHT_STYLES[alias]="fg=$ctp[mauve],bold"
+ZSH_HIGHLIGHT_STYLES[builtin]="fg=$ctp[mauve],bold"
+ZSH_HIGHLIGHT_STYLES[function]="fg=$ctp[mauve],bold"
+ZSH_HIGHLIGHT_STYLES[command]="fg=$ctp[mauve],bold"
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=$ctp[accent_red],standout"
+ZSH_HIGHLIGHT_STYLES[hashed-command]="fg=$ctp[mauve]"
+ZSH_HIGHLIGHT_STYLES[arg0]="fg=$ctp[green]"
+ZSH_HIGHLIGHT_STYLES[path]="fg=$ctp[blue],underline"
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]="fg=$ctp[sky]"
+ZSH_HIGHLIGHT_STYLES[globbing]="fg=$ctp[peach]"
+ZSH_HIGHLIGHT_STYLES[history-expansion]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]="fg=$ctp[peach]"
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]="fg=$ctp[peach]"
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]="fg=$ctp[yellow]"
+ZSH_HIGHLIGHT_STYLES[assign]="fg=$ctp[text]"
+ZSH_HIGHLIGHT_STYLES[redirection]="fg=$ctp[green]"
+ZSH_HIGHLIGHT_STYLES[comment]="fg=$ctp[overlay0],standout"
+ZSH_HIGHLIGHT_STYLES[named-fd]="fg=$ctp[red]"
+ZSH_HIGHLIGHT_STYLES[numeric-fd]="fg=$ctp[red]"
+ZSH_HIGHLIGHT_STYLES[commandseparator]="fg=$ctp[green]"
+
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # Add colors to ls command
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath' # Show inside of folder when using cd
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath' # Show inside of folder when using zoxide
 
 # Aliases
 alias clr='clear'
