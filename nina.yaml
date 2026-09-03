@@ -3,3 +3,5 @@ files:
     target: .zshrc
   - src: config/vesktop/settings.json
     target: .config/vesktop/settings/settings.json
+  - src: config/starship/starship.toml
+    target: .config/starship/starship.toml

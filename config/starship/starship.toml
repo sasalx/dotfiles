@@ -1,0 +1,82 @@
+format = """
+$directory\
+$git_branch\
+$cmd_duration\
+$nodejs\
+$golang\
+$rust\
+$package\
+$docker_context\
+$jobs\
+$line_break\
+$character"""
+
+palette = "meguca"
+
+[directory]
+style = "bold purple"
+format = '[$path ]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+[directory.substitutions]
+'Documents' = '󰈙'
+'Downloads' = ' '
+'Pictures' = ' '
+"Projects" = "󰲋 "
+
+[git_branch]
+style = "bold pink"
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+style = "bold cyan"
+
+[nodejs]
+style = "bold green"
+symbol = ' '
+
+[golang]
+style = "bold cyan"
+symbol = ' '
+
+[rust]
+style = "bold orange"
+symbol = ' '
+
+[package]
+style = "bold yellow"
+symbol = '󰏗 '
+
+[docker_context]
+style = "bold cyan"
+symbol = ' '
+format = '[$symbol]($style) $path'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
+
+[jobs]
+symbol = ' '
+style = 'red'
+number_threshold = 1
+format = '[$symbol]($style)'
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✘](bold red)"
+
+
+[palettes.meguca]
+background = "#241b2f"
+foreground = "#f4eee4"
+purple = "#8a56cc"
+pink = "#f92aad"
+cyan = "#03edf9"
+green = "#72f1b8"
+orange = "#ff8b39"
+yellow = "#f4eb67"
+red = "#fe4450"
